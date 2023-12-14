@@ -23,11 +23,9 @@ const INITIAL_PRODUCT_LIST = [
   
 ]
 function App() {
-  const greet = "let's Start"
   const productList = INITIAL_PRODUCT_LIST
   return (
     <div className="App">
-     {/* <h4> {greet} </h4> */}
      <div className = "main-container" >
      {productList.map((product) => {
       return <Product product = {product}/>
