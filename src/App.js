@@ -39,7 +39,6 @@ function App() {
 }
 
 function Product ({product}) {
-
 return (
   <div className = "product-container">
     <img className = "product-poster" src = {product.poster} />
