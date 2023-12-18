@@ -147,7 +147,7 @@ return (
     <p style = {ratingsStyles} className = "product-ratings" > ⭐{product.ratings} </p>
     </div>
     <button onClick = { () => setShow(!show) } >Toggle summary</button>
-    <p style = {summaryStyle} className = "product-summary" > {product.summary} </p>
+     { show? <p  className = "product-summary" > {product.summary} </p>: null } 
     <div className = "price">
       price : <p className = "product-price" > {product.price} </p>
       <button>add to cart</button>
