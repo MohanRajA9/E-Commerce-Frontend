@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from "react"
-
+import {Counter} from "./Counter.js"
 const INITIAL_PRODUCT_LIST = [
   {
     "name": "Motivational Poster Frame",
@@ -124,7 +124,6 @@ function App() {
       return <Product product = {product}/>
     })}
      </div>
-
     </div>
   );
 }
@@ -141,7 +140,7 @@ function Product ({product}) {
   }
 return (
   <div className = "product-container">
-    <img className = "product-poster" src = {product.poster} />
+    <img className = "product-poster" src = {product.poster} alt = {product.name} />
     <div className = "name-rating">
     <h3 className = "product-name" > {product.name} </h3>
     <p style = {ratingsStyles} className = "product-ratings" > ⭐{product.ratings} </p>
@@ -152,6 +151,9 @@ return (
       price : <p className = "product-price" > {product.price} </p>
       <button>add to cart</button>
     </div>
+    <div class = "likes">
+        <Counter />
+      </div>
   </div>
 );
 }
