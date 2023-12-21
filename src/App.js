@@ -120,8 +120,8 @@ function App() {
   return (
     <div className="App">
      <div className = "main-container" >
-     {productList.map((product) => {
-      return <Product product = {product}/>
+     {productList.map((product,index) => {
+      return <Product key={index} product = {product}/>
     })}
      </div>
     </div>
@@ -151,7 +151,7 @@ return (
       price : <p className = "product-price" > {product.price} </p>
       <button>add to cart</button>
     </div>
-    <div class = "likes">
+    <div className = "likes">
         <Counter />
       </div>
   </div>
