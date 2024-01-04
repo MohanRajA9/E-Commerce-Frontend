@@ -1,7 +1,9 @@
 import './App.css';
-import {useState} from "react"
-import {Counter} from "./Counter.js"
-const INITIAL_PRODUCT_LIST = [
+import {Routes,Route} from 'react-router-dom';
+import { ProductList } from './ProductList.js';
+import { AddColor } from './AddColor.js';
+import { Profile } from './profile.js';
+export const INITIAL_PRODUCT_LIST = [
   {
     "name": "Motivational Poster Frame",
     "poster": "https://m.media-amazon.com/images/I/71kb+LvPEsL._SX425_.jpg",
@@ -116,46 +118,45 @@ const INITIAL_PRODUCT_LIST = [
 ]
 
 function App() {
-  const productList = INITIAL_PRODUCT_LIST
+  
   return (
     <div className="App">
-     <div className = "main-container" >
-     {productList.map((product,index) => {
-      return <Product key={index} product = {product}/>
-    })}
-     </div>
+     <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/products" element={<ProductList/>} />
+      <Route path="/color-game" element={<AddColor />} />
+      <Route path="/superHero" element={<SuperHeroList/>} />
+     </Routes>
     </div>
   );
 }
+ 
+function Home () {
+  return (
+    <h1>Welcome to Product App</h1>
+  );
+}
 
-function Product ({product}) {
-
-  const [show , setShow ] = useState(true)
-  const summaryStyle = {
-    display : show? "block" : "none" 
-  }
-
-  const ratingsStyles = {
-    color : product.ratings >= 4.5 ? "green" : "red"  //ternary operator
-  }
+function SuperHeroList () {
+const superHeroList = [
+  {img : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOIdSm1lURjop7-fg9QZUbwd_ruoWnro3nmtRVTJHILWD72sVN3xX6l82HZQXI5CuA4cE&usqp=CAU", 
+  name : "Captain America"
+ },
+ {img : "https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/19/1494599203-greatest-superhero-films-iron-man.jpg?resize=980:*", 
+ name : "Iron Man"
+},
+{img : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjoB9vAEokszZyFjsjuLH7lRfE4IHbphLY7w&usqp=CAU", 
+name : "Ant Man"
+}
+]
 return (
-  <div className = "product-container">
-    <img className = "product-poster" src = {product.poster} alt = {product.name} />
-    <div className = "name-rating">
-    <h3 className = "product-name" > {product.name} </h3>
-    <p style = {ratingsStyles} className = "product-ratings" > ⭐{product.ratings} </p>
-    </div>
-    <button onClick = { () => setShow(!show) } >Toggle summary</button>
-     { show? <p  className = "product-summary" > {product.summary} </p>: null } 
-    <div className = "price">
-      price : <p className = "product-price" > {product.price} </p>
-      <button>add to cart</button>
-    </div>
-    <div className = "likes">
-        <Counter />
-      </div>
-  </div>
+  <>
+    {superHeroList.map((hero) => {
+    return <Profile Name={hero.name} Image={hero.img} />})}
+  </>
 );
 }
 
 export default App;
+
+
