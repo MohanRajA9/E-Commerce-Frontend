@@ -6,7 +6,7 @@ export function ProductList() {
   return (
     <div className="main-container">
       {productList.map((product, index) => {
-        return <Product key={index} product={product} />;
+        return <Product key={index} id = {index} product={product} />;
       })}
     </div>
   );
