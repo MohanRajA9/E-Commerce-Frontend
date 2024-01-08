@@ -1,9 +1,10 @@
 import './App.css';
-import {Routes,Route,Link,useParams} from 'react-router-dom';
+import {Routes,Route,Link} from 'react-router-dom';
 import { ProductList } from './ProductList.js';
 import { AddColor } from './AddColor.js';
 import { SuperHeroList } from './SuperHeroList.js';
 import { Home } from './Home.js';
+import { ProductDetailPage } from './ProductDetailPage.js';
 export const INITIAL_PRODUCT_LIST = [
   {
     "name": "Motivational Poster Frame",
@@ -128,12 +129,14 @@ function App() {
           <li><Link to = "/products" >products</Link></li>
           <li><Link to = "color-game" >Add color</Link></li>
           <li><Link to = "/superHero" >Super Heros</Link></li>
+          <li><Link to = "/products/add" >Add Product</Link></li>
         </ul>
       </nav>
      <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/products" element={<ProductList/>} />
       <Route path="/product/:id" element={<ProductDetailPage/>} />
+      <Route path="/products/add" element={<AddProduct/>}/>
       
       <Route path="/color-game" element={<AddColor />} />
       <Route path="/superHero" element={<SuperHeroList/>} />
@@ -142,11 +145,10 @@ function App() {
   );
 }
 
-function ProductDetailPage () {
-  //getting parameters from url
-  const {id} = useParams()
+function AddProduct () {
+  
   return (
-    <h1>Product Detail page - {id} </h1>
+    <div>Add Product</div>
   )
 } 
 
