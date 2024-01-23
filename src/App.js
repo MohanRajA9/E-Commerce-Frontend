@@ -5,6 +5,8 @@ import { AddColor } from './AddColor.js';
 import { SuperHeroList } from './SuperHeroList.js';
 import { Home } from './Home.js';
 import { ProductDetailPage } from './ProductDetailPage.js';
+import { AddProduct } from './AddProduct.js';
+import { useState } from 'react';
 export const INITIAL_PRODUCT_LIST = [
   {
     "name": "Motivational Poster Frame",
@@ -119,38 +121,37 @@ export const INITIAL_PRODUCT_LIST = [
   }
 ]
 
+
 function App() {
-  
+ 
+  const [ productList, setProductList ] = useState(INITIAL_PRODUCT_LIST)
+
   return (
     <div className="App">
       <nav>
         <ul>
           <li><Link to = "/" >Home</Link></li>
           <li><Link to = "/products" >products</Link></li>
+          <li><Link to = "/products/add" >Add Product</Link></li>
+          
           <li><Link to = "color-game" >Add color</Link></li>
           <li><Link to = "/superHero" >Super Heros</Link></li>
-          <li><Link to = "/products/add" >Add Product</Link></li>
-        </ul>
+          </ul> 
       </nav>
+
      <Routes>
       <Route path="/" element={<Home/>} />
-      <Route path="/products" element={<ProductList/>} />
+      <Route path="/products" element={<ProductList productlist = { productList } />} />
+      <Route path="/products/add" element={<AddProduct productlist = { productList } 
+      setProductList = { setProductList } />}/>
       <Route path="/product/:id" element={<ProductDetailPage/>} />
-      <Route path="/products/add" element={<AddProduct/>}/>
-      
+     
       <Route path="/color-game" element={<AddColor />} />
       <Route path="/superHero" element={<SuperHeroList/>} />
      </Routes>
     </div>
   );
 }
-
-function AddProduct () {
-  
-  return (
-    <div>Add Product</div>
-  )
-} 
 
 export default App;
 

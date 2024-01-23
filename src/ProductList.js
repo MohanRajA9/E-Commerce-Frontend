@@ -1,13 +1,14 @@
 import { Product } from './Product.js';
-import { INITIAL_PRODUCT_LIST } from './App.js';
+// import { INITIAL_PRODUCT_LIST } from './App.js';
+// import { useState } from 'react';
 
-export function ProductList() {
-  const productList = INITIAL_PRODUCT_LIST;
+export function ProductList({productlist}) {
+    
   return (
     <div className="main-container">
-      {productList.map((product, index) => {
-        return <Product key={index} id = {index} product={product} />;
-      })}
+      {productlist.map((product, index) => (
+      <Product key={index} id = {index} product={product} />
+      ))}
     </div>
   );
 }
