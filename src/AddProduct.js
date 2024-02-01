@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function AddProduct({productlist,setProductList}) {
+export function  AddProduct({productList, setProductList}) {
 
   const [name , setName] = useState("");
   const [poster , setPoster] = useState("");
@@ -38,12 +38,15 @@ export function AddProduct({productlist,setProductList}) {
         summary,
         ratings
      }
-      setProductList([...productlist, newProduct])
+      
+      setProductList([...productList, newProduct])
       console.log(newProduct)
       navigate("/products")
+      
      } }
      >Add Product</button>
 
     </div>
   );
 }
+ 

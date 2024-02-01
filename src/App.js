@@ -141,8 +141,8 @@ function App() {
 
      <Routes>
       <Route path="/" element={<Home/>} />
-      <Route path="/products" element={<ProductList productlist = { productList } />} />
-      <Route path="/products/add" element={<AddProduct productlist = { productList } 
+      <Route path="/products" element={<ProductList productList = { productList } />} />
+      <Route path="/products/add" element={<AddProduct productList = { productList } 
       setProductList = { setProductList } />}/>
       <Route path="/product/:id" element={<ProductDetailPage/>} />
      
