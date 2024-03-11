@@ -21,7 +21,7 @@ export function Product({ product,id }) {
         <p style={ratingsStyles} className="product-ratings"> ⭐{product.ratings} </p>
       </div>
       <button onClick={() => setShow(!show)}>Toggle summary</button>
-      <button onClick = {() => navigate("/product/" + id )} >info</button>
+      <button onClick = {() => navigate(`/product/${id}` )} >info</button>
       {show ? <p className="product-summary"> {product.summary} </p> : null}
       <div className="price"> 
         price : <p className="product-price"> {product.price} </p>

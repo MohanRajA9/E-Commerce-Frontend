@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes,Route,Link} from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { ProductList } from './ProductList.js';
 import { AddColor } from './AddColor.js';
 import { SuperHeroList } from './SuperHeroList.js';
@@ -7,6 +7,16 @@ import { Home } from './Home.js';
 import { ProductDetailPage } from './ProductDetailPage.js';
 import { AddProduct } from './AddProduct.js';
 import { useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { Button } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { dark } from '@mui/material/styles/createPalette.js';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+
 export const INITIAL_PRODUCT_LIST = [
   {
     "name": "Motivational Poster Frame",
@@ -21,13 +31,6 @@ export const INITIAL_PRODUCT_LIST = [
     "price": "₹1,56,990",
     "summary": "FORGED IN TITANIUM — iPhone 15 Pro Max has a strong and light aerospace-grade titanium design with a textured matte-glass back. It also features a Ceramic Shield front that’s tougher than any smartphone glass. And it’s splash, water, and dust resistant.",
     "ratings": 3.9
-  },
-  {
-    "name" : "Nivia Men Marathon Running Shoe for Mens",
-    "poster" : "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/81hd2QkPuqL._SY625_.jpg",
-    "price ": "₹590",
-    "summary" : "Breathable Mesh upper With PVC synthetic leather. Die cut N.R E.VA Sockliner exists as an extra layer of plush,step-in comfort.Rubber outSole provide perfect gripping , flexibility and durability",
-    "ratings" : 4.8
   },
   {
     "name": "Apple 2022 MacBook Pro Laptop with M2 chip",
@@ -50,12 +53,6 @@ export const INITIAL_PRODUCT_LIST = [
     "ratings": 3.5,
     "summary": " iPhone 15 Pro has a strong and light aerospace-grade titanium design with a textured matte-glass back. It also features a Ceramic Shield front that’s tougher than any smartphone glass. And it’s splash, water, and dust resistant."
   },
-  { "name" : "Campus OXYFIT",
-    "poster" : "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/61ePa5fEKnL._SY695_.jpg",
-    "price ": "₹647",
-    "summary" : "Shoes' Upper- Slip into style and ease with these men's casual slip-on shoes. The breathable mesh upper keeps your feet fresh and comfortable. These slip-ons are easy to wear and are perfect for those who hate the hassle of tying laces. Suitable for your need, be it college, office, or casual dates – these shoes for men are versatile enough for any occasion!", 
-    "ratings" : 3.5
-  },
   {
     "name": "Samsung Galaxy S23 5G (256GB Storage) ",
     "poster": "https://m.media-amazon.com/images/I/51L8W6d-DNL._AC_UY218_.jpg",
@@ -69,13 +66,6 @@ export const INITIAL_PRODUCT_LIST = [
     "price": "₹1,00,000",
     "ratings": 5.0,
     "summary": "Create crystal-clear content worth sharing with Galaxy S23 Ultra’s 200MP camera — the highest camera resolution on a phone; Whether you’re posting or printing, Galaxy S23 Ultra always does the moment justice."
-  },
-  {
-    "name" : "Sports Running Shoes with Crystal Cushion",
-    "poster" : "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/61BNP0y86fL._SY625_.jpg",
-    "price" : "₹1286",
-    "summary" : "Lightweight & Breathable : Exclusive design and durable materials every step feels light and breezy. Breathable, free-moving fabrics which adjust according to your foot and creates an astoundingly easy-going experience.",
-    "ratings" : 4
   },
   {
     "name": "Apple AirPods Pro (2nd Generation) ​​​​​​​ ",
@@ -123,12 +113,42 @@ export const INITIAL_PRODUCT_LIST = [
 
 
 function App() {
- 
-  const [ productList, setProductList ] = useState(INITIAL_PRODUCT_LIST)
+
+  const [productList, setProductList] = useState(INITIAL_PRODUCT_LIST)
+  const [mode, setMode] = useState("light")
+
+  const navigate = useNavigate()
+
+  //1.creating - createcontext
+  //2.publisher - provider - context.provider
+  //3.subscriber - usecontext - useContext(context)
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+
+
 
   return (
-    <div className="App">
-      <nav>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <div className="App">
+        <AppBar position="static" >
+          <Toolbar>
+            <Button color="inherit" onClick={() => navigate("/")} >Home</Button>
+            <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
+            <Button color="inherit" onClick={() => navigate("/products/add")}>Add Products</Button>
+            <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
+            <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
+            <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            onClick={() => setMode(mode === "light" ? "dark" : "light")}>
+              {mode === "light" ? "dark" : "light"} mode</Button>
+          </Toolbar>
+        </AppBar>
+
+        {/* <nav>
         <ul>
           <li><Link to = "/" >Home</Link></li>
           <li><Link to = "/products" >products</Link></li>
@@ -137,19 +157,20 @@ function App() {
           <li><Link to = "color-game" >Add color</Link></li>
           <li><Link to = "/superHero" >Super Heros</Link></li>
           </ul> 
-      </nav>
+      </nav> */}
 
-     <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/products" element={<ProductList productList = { productList } />} />
-      <Route path="/products/add" element={<AddProduct productList = { productList } 
-      setProductList = { setProductList } />}/>
-      <Route path="/product/:id" element={<ProductDetailPage/>} />
-     
-      <Route path="/color-game" element={<AddColor />} />
-      <Route path="/superHero" element={<SuperHeroList/>} />
-     </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<ProductList productList={productList} />} />
+          <Route path="/products/add" element={<AddProduct productList={productList}
+            setProductList={setProductList} />} />
+          <Route path="/product/:productid" element={<ProductDetailPage productList={productList} />} />
+
+          <Route path="/color-game" element={<AddColor />} />
+          <Route path="/superHero" element={<SuperHeroList />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 

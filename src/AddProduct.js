@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 export function  AddProduct({productList, setProductList}) {
 
@@ -14,22 +16,34 @@ export function  AddProduct({productList, setProductList}) {
   return (
     <div className='add-product-form' >
       <h1>Add Product</h1>
-      <input type="text" value={name} placeholder='Name'
-      onChange={(event) => setName(event.target.value) }></input>
 
-      <input type="text" value={poster} placeholder='Poster'
-      onChange={(event) => setPoster(event.target.value) }></input>
+      <TextField id="outlined-basic" label="Name" variant="outlined" value={name} onChange={(event) => setName(event.target.value) } />
 
-      <input type="text" value={price} placeholder='Price'
-      onChange={(event) => setPrice(event.target.value) }></input>
+      <TextField id="outlined-basic" label="Poster" variant="outlined" value={poster} onChange={(event) => setPoster(event.target.value) } />
 
-      <input type="text" value={summary} placeholder='Summary'
-      onChange={(event) => setSummary(event.target.value) }></input>
+      <TextField id="outlined-basic" label="Price" variant="outlined" value={price} onChange={(event) => setPrice(event.target.value) } />
 
-      <input type="text" value={ratings} placeholder='Ratings'
-      onChange={(event) => setRatings(event.target.value) }></input>
+      <TextField id="outlined-basic" label="Summary" variant="outlined" value={summary} onChange={(event) => setSummary(event.target.value) } />
 
-     <button 
+      <TextField id="outlined-basic" label="Ratings" variant="outlined" value={ratings} onChange={(event) => setRatings(event.target.value) } />
+
+      <Button variant="contained" 
+      onClick={ () => { 
+      const newProduct = {
+        name,
+        poster,
+        price,
+        summary,
+        ratings
+     }
+      setProductList([...productList, newProduct])
+      console.log(newProduct)
+      navigate("/products")
+     } }>Add Product</Button>
+
+
+
+     {/* <button 
      onClick={ () => { 
       const newProduct = {
         name,
@@ -44,7 +58,7 @@ export function  AddProduct({productList, setProductList}) {
       navigate("/products")
       
      } }
-     >Add Product</button>
+     >Add Product</button> */}
 
     </div>
   );
