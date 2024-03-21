@@ -1,11 +1,11 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { ProductList } from './ProductList.js';
+import { ProductList } from './components/ProductList.js';
 import { AddColor } from './AddColor.js';
 import { SuperHeroList } from './SuperHeroList.js';
 import { Home } from './Home.js';
-import { ProductDetailPage } from './ProductDetailPage.js';
-import { AddProduct } from './AddProduct.js';
+import { ProductDetailPage } from './components/ProductDetailPage.js';
+import { AddProduct } from './components/AddProduct.js';
 import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,7 +15,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { dark } from '@mui/material/styles/createPalette.js';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-
+import ExampleContext from './context/ExampleContext.js';
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -30,14 +30,16 @@ export const INITIAL_PRODUCT_LIST = [
     "poster": "https://m.media-amazon.com/images/I/81Os1SDWpcL._AC_UY327_FMwebp_QL65_.jpg",
     "price": "₹1,56,990",
     "summary": "FORGED IN TITANIUM — iPhone 15 Pro Max has a strong and light aerospace-grade titanium design with a textured matte-glass back. It also features a Ceramic Shield front that’s tougher than any smartphone glass. And it’s splash, water, and dust resistant.",
-    "ratings": 3.9
+    "ratings": 3.9,
+    "trailer":"https://www.youtube.com/embed/xqyUdNxWazA"
   },
   {
     "name": "Apple 2022 MacBook Pro Laptop with M2 chip",
     "poster": "https://m.media-amazon.com/images/I/71WtFY52CeL._SX679_.jpg",
     "price": "₹1,40,990",
     "summary": "SUPERCHARGED BY M2 – The 13-inch MacBook Pro laptop is a portable powerhouse. Get more done faster with a next-generation 8-core CPU, 10-core GPU and up to 24GB of unified memory.",
-    "ratings": 4.9
+    "ratings": 4.9,
+    "trailer":"https://www.youtube.com/embed/0pg_Y41waaE"
   },
   {
     "name": " iPhone 15 (128 GB)",
@@ -65,7 +67,8 @@ export const INITIAL_PRODUCT_LIST = [
     "poster": "https://m.media-amazon.com/images/I/51hqXIAVXAL._AC_UY218_.jpg",
     "price": "₹1,00,000",
     "ratings": 5.0,
-    "summary": "Create crystal-clear content worth sharing with Galaxy S23 Ultra’s 200MP camera — the highest camera resolution on a phone; Whether you’re posting or printing, Galaxy S23 Ultra always does the moment justice."
+    "summary": "Create crystal-clear content worth sharing with Galaxy S23 Ultra’s 200MP camera — the highest camera resolution on a phone; Whether you’re posting or printing, Galaxy S23 Ultra always does the moment justice.",
+    "trailer":"https://www.youtube.com/embed/BSYsXVFzmKA"
   },
   {
     "name": "Apple AirPods Pro (2nd Generation) ​​​​​​​ ",
@@ -111,12 +114,11 @@ export const INITIAL_PRODUCT_LIST = [
   }
 ]
 
-
 function App() {
 
   const [productList, setProductList] = useState(INITIAL_PRODUCT_LIST)
   const [mode, setMode] = useState("light")
-
+  console.log(productList)
   const navigate = useNavigate()
 
   //1.creating - createcontext
@@ -129,8 +131,6 @@ function App() {
     },
   });
 
-
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -140,6 +140,7 @@ function App() {
             <Button color="inherit" onClick={() => navigate("/")} >Home</Button>
             <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
             <Button color="inherit" onClick={() => navigate("/products/add")}>Add Products</Button>
+            <Button color="inherit" onClick={() => navigate("/context")}>Context</Button>
             <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
             <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
             <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -168,6 +169,9 @@ function App() {
 
           <Route path="/color-game" element={<AddColor />} />
           <Route path="/superHero" element={<SuperHeroList />} />
+          <Route path="/context" element={<ExampleContext />} />
+
+          
         </Routes>
       </div>
     </ThemeProvider>
