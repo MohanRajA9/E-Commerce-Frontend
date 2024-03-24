@@ -16,6 +16,7 @@ import { dark } from '@mui/material/styles/createPalette.js';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ExampleContext from './context/ExampleContext.js';
+import TicTacToe from './components/TicTacToe.js';
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -31,7 +32,7 @@ export const INITIAL_PRODUCT_LIST = [
     "price": "₹1,56,990",
     "summary": "FORGED IN TITANIUM — iPhone 15 Pro Max has a strong and light aerospace-grade titanium design with a textured matte-glass back. It also features a Ceramic Shield front that’s tougher than any smartphone glass. And it’s splash, water, and dust resistant.",
     "ratings": 3.9,
-    "trailer":"https://www.youtube.com/embed/xqyUdNxWazA"
+    "trailer": "https://www.youtube.com/embed/xqyUdNxWazA"
   },
   {
     "name": "Apple 2022 MacBook Pro Laptop with M2 chip",
@@ -39,7 +40,7 @@ export const INITIAL_PRODUCT_LIST = [
     "price": "₹1,40,990",
     "summary": "SUPERCHARGED BY M2 – The 13-inch MacBook Pro laptop is a portable powerhouse. Get more done faster with a next-generation 8-core CPU, 10-core GPU and up to 24GB of unified memory.",
     "ratings": 4.9,
-    "trailer":"https://www.youtube.com/embed/0pg_Y41waaE"
+    "trailer": "https://www.youtube.com/embed/0pg_Y41waaE"
   },
   {
     "name": " iPhone 15 (128 GB)",
@@ -68,7 +69,7 @@ export const INITIAL_PRODUCT_LIST = [
     "price": "₹1,00,000",
     "ratings": 5.0,
     "summary": "Create crystal-clear content worth sharing with Galaxy S23 Ultra’s 200MP camera — the highest camera resolution on a phone; Whether you’re posting or printing, Galaxy S23 Ultra always does the moment justice.",
-    "trailer":"https://www.youtube.com/embed/BSYsXVFzmKA"
+    "trailer": "https://www.youtube.com/embed/BSYsXVFzmKA"
   },
   {
     "name": "Apple AirPods Pro (2nd Generation) ​​​​​​​ ",
@@ -141,10 +142,11 @@ function App() {
             <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
             <Button color="inherit" onClick={() => navigate("/products/add")}>Add Products</Button>
             <Button color="inherit" onClick={() => navigate("/context")}>Context</Button>
+            <Button color="inherit" onClick={() => navigate("/tic-tac-toe")} >TicTacToe</Button>
             <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
             <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
             <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            onClick={() => setMode(mode === "light" ? "dark" : "light")}>
+              onClick={() => setMode(mode === "light" ? "dark" : "light")}>
               {mode === "light" ? "dark" : "light"} mode</Button>
           </Toolbar>
         </AppBar>
@@ -170,8 +172,7 @@ function App() {
           <Route path="/color-game" element={<AddColor />} />
           <Route path="/superHero" element={<SuperHeroList />} />
           <Route path="/context" element={<ExampleContext />} />
-
-          
+          <Route path="/tic-tac-toe" element={<TicTacToe />} />
         </Routes>
       </div>
     </ThemeProvider>
