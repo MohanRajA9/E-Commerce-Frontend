@@ -67,7 +67,7 @@ function TicTacToe() {
             {winner && <Confetti width={width} height={height} />}
             <div className='board' >
                 {board.map((val, index) => (
-                    <GameBox key={index} val={val} onPlayerClick={() => handleClick(index)} />
+                    <GameBox key={index} val={val} onPlayerClick={() => handleClick(index)} /> //sending a call back function as a props
                 ))}
             </div>
         </div>

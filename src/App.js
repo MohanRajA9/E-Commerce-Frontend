@@ -122,6 +122,11 @@ function App() {
   console.log(productList)
   const navigate = useNavigate()
 
+  fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  
+
   //1.creating - createcontext
   //2.publisher - provider - context.provider
   //3.subscriber - usecontext - useContext(context)
