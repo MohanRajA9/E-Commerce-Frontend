@@ -6,7 +6,7 @@ import { SuperHeroList } from './SuperHeroList.js';
 import { Home } from './Home.js';
 import { ProductDetailPage } from './components/ProductDetailPage.js';
 import { AddProduct } from './components/AddProduct.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Button } from '@mui/material';
@@ -17,6 +17,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ExampleContext from './context/ExampleContext.js';
 import TicTacToe from './components/TicTacToe.js';
+import LifeCycleA from './classComponent/LifeCycleA.js';
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -117,15 +118,19 @@ export const INITIAL_PRODUCT_LIST = [
 
 function App() {
 
-  const [productList, setProductList] = useState(INITIAL_PRODUCT_LIST)
+  const [productList, setProductList] = useState([])
   const [mode, setMode] = useState("light")
-  console.log(productList)
+  // console.log(productList)
   const navigate = useNavigate()
 
-  fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
-  .then((res) => res.json())
-  .then((data) => console.log(data))
+  useEffect(() => { 
+    fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
+    .then((res) => res.json())
+    .then((data) => setProductList(data))
+  }, [])
+
   
+
 
   //1.creating - createcontext
   //2.publisher - provider - context.provider
@@ -150,6 +155,9 @@ function App() {
             <Button color="inherit" onClick={() => navigate("/tic-tac-toe")} >TicTacToe</Button>
             <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
             <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
+            <Button color="inherit" onClick={() => navigate("/class")}>Class Component</Button>
+
+
             <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               onClick={() => setMode(mode === "light" ? "dark" : "light")}>
               {mode === "light" ? "dark" : "light"} mode</Button>
@@ -169,15 +177,18 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<ProductList productList={productList} />} />
+          <Route path="/products" element={<ProductList />} />
           <Route path="/products/add" element={<AddProduct productList={productList}
             setProductList={setProductList} />} />
-          <Route path="/product/:productid" element={<ProductDetailPage productList={productList} />} />
+          <Route path="/product/:productid" element={<ProductDetailPage />} />
 
           <Route path="/color-game" element={<AddColor />} />
           <Route path="/superHero" element={<SuperHeroList />} />
           <Route path="/context" element={<ExampleContext />} />
           <Route path="/tic-tac-toe" element={<TicTacToe />} />
+          <Route path="/class" element={<LifeCycleA />} />
+
+
         </Routes>
       </div>
     </ThemeProvider>
