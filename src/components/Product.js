@@ -6,7 +6,7 @@ import { Button, IconButton } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
 import { Counter } from "../Counter";
 
-export function Product({ product, id }) {
+export function Product({ product, id, deleteButton, editButton }) {
 
   const [show, setShow] = useState(true);
   const summaryStyle = {
@@ -25,12 +25,12 @@ export function Product({ product, id }) {
         <p style={ratingsStyles} className="product-ratings"> ⭐{product.ratings} </p>
       </div>
 
-      <IconButton aria-label="delete" color="primary" onClick={() => setShow(!show)}>
+      <IconButton aria-label="toggleBtn" color="primary" onClick={() => setShow(!show)}>
         {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
       </IconButton>
       {/* <button onClick={() => setShow(!show)}>Toggle summary</button> */}
 
-      <IconButton aria-label="delete" color="primary" onClick={() => navigate(`/product/${id}`)}>
+      <IconButton aria-label="infoBtn" color="primary" onClick={() => navigate(`/product/${id}`)}>
         <InfoIcon />
       </IconButton>
       {/* <button onClick = {() => navigate(`/product/${id}` )} >info</button> */}
@@ -44,8 +44,10 @@ export function Product({ product, id }) {
         </Button>
         {/* <button>add to cart</button> */}
       </div>
-      <div className="likes">
+      <div style={{display:"flex", justifyContent:"space-between"}} >
         <Counter/>
+        {deleteButton}
+        {editButton}
       </div>
     </div>
   );

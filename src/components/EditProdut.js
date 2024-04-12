@@ -1,21 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { API } from '../global';
 
-export function AddProduct() {
+export function EditProdut() {
 
-  const [name, setName] = useState("");
-  const [poster, setPoster] = useState("");
-  const [price, setPrice] = useState("");
-  const [summary, setSummary] = useState("");
-  const [ratings, setRatings] = useState("");
-  const navigate = useNavigate()
+  const { productid } = useParams();
+  const [product, setProduct] = useState();
 
+  useEffect(()=>{
+    fetch(`${API}/products/${productid}`)
+    .then((res) => res.json())
+    .then((data) => setProduct(data))
 
-  return (
-    <div className='add-product-form' >
+  },[])
+  // console.log(product.name)
+
+  return product ? <EditProductForm product={product} /> : "Loading..."
+  
+}
+
+function EditProductForm({product}) {
+  const navigate = useNavigate();
+  const { productid } = useParams();
+
+  const [name, setName] = useState(product.name);
+  const [poster, setPoster] = useState(product.poster);
+  const [price, setPrice] = useState(product.price);
+  const [summary, setSummary] = useState(product.summary);
+  const [ratings, setRatings] = useState(product.ratings);
+  return(
+    <div className='edit-product-form' >
       <h1>Add Product</h1>
 
       <TextField id="outlined-basic" label="Name" variant="outlined" value={name} onChange={(event) => setName(event.target.value)} />
@@ -28,48 +44,27 @@ export function AddProduct() {
 
       <TextField id="outlined-basic" label="Ratings" variant="outlined" value={ratings} onChange={(event) => setRatings(event.target.value)} />
 
-      <Button variant="contained"
+      <Button variant="contained" color='success'
         onClick={() => {
-          const newProduct = {
+          const updatedProduct = {
             name,
             poster,
             price,
             summary,
             ratings
           }
-          fetch(`${API}/products`, {
-            method: "POST",
-            body: JSON.stringify(newProduct),
+          fetch(`${API}/products/${product.id}`, {
+            method: "PUT",
+            body: JSON.stringify(updatedProduct),
             headers: {
               "Content-Type": "application/json"
             }
           })
             .then((res) => res.json())
             .then(() => navigate("/products"))
-          // setProductList([...productList, newProduct])
-          // console.log(newProduct)
 
-        }}>Add Product</Button>
-
-
-
-      {/* <button 
-     onClick={ () => { 
-      const newProduct = {
-        name,
-        poster,
-        price,
-        summary,
-        ratings
-     }
-      
-      setProductList([...productList, newProduct])
-      console.log(newProduct)
-      navigate("/products")
-      
-     } }
-     >Add Product</button> */}
+        }}>SAVE</Button>
 
     </div>
-  );
+  )
 }

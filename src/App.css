@@ -80,3 +80,9 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.edit-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
