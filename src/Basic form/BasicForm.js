@@ -4,7 +4,7 @@ import *as yup from 'yup'
 
 const formValidationSchema = yup.object({
     password: yup.string()
-        .min(8, "dei loosu payalee mimimum 8 character irukanum da")
+        .min(8, "Need a longer Password")
         .max(12, "Too much Password")
         .required("Why not fill the password")
         .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@_#/&*]).{8,}$/i, "Password doesn't match"),
