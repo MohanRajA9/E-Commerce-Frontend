@@ -19,6 +19,7 @@ import ExampleContext from './context/ExampleContext.js';
 import TicTacToe from './components/TicTacToe.js';
 import LifeCycleA from './classComponent/LifeCycleA.js';
 import { EditProdut } from './components/EditProdut.js';
+import BasicForm from './Basic form/BasicForm.js';
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -124,13 +125,13 @@ function App() {
   // console.log(productList)
   const navigate = useNavigate()
 
-  useEffect(() => { 
+  useEffect(() => {
     fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
-    .then((res) => res.json())
-    .then((data) => setProductList(data))
+      .then((res) => res.json())
+      .then((data) => setProductList(data))
   }, [])
 
-  
+
 
 
   //1.creating - createcontext
@@ -157,6 +158,8 @@ function App() {
             <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
             <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
             <Button color="inherit" onClick={() => navigate("/class")}>Class Component</Button>
+            <Button color="inherit" onClick={() => navigate("/form")}>Basic Form</Button>
+
 
 
             <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -182,6 +185,7 @@ function App() {
           <Route path="/products/add" element={<AddProduct />} />
           <Route path="/product/:productid" element={<ProductDetailPage />} />
           <Route path="/products/edit/:productid" element={<EditProdut />} />
+          <Route path="/form" element={<BasicForm />} />
 
 
           <Route path="/color-game" element={<AddColor />} />
