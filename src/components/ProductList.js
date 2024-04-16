@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { API } from '../global.js';
+import axios from 'axios';
 // import { INITIAL_PRODUCT_LIST } from './App.js';
 // import { useState } from 'react';
 
@@ -12,7 +13,6 @@ export function ProductList() {
 
   const [productList, setProductList] = useState([])
   const navigate = useNavigate()
-
 
   // fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
   // .then((res)=> res.json())
@@ -28,14 +28,15 @@ export function ProductList() {
   //   }
   // }
 
-  const getProducts = () => {
-    fetch(`${API}/products`, { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => setProductList(data))
+  const getProducts = async () => {
+    const response = await axios.get(`${API}/products`)
+    console.log(response.data)
+    setProductList(response.data)
+    // return response
   }
 
-  useEffect(() => getProducts(), [])
-
+  useEffect(() => {getProducts()}, [])
+  
   return (
     <div className="main-container">
       {productList.map((product, index) => (

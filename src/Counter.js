@@ -7,7 +7,7 @@ export function Counter() {
   const [disLike, setDisLike] = useState(0);
 
   useEffect(()=>{
-    console.log("like is updated", like)
+    // console.log("like is updated", like)
   },[])
 
   return (
