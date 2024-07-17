@@ -86,3 +86,8 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.welcome{
+  display: flex;
+  justify-content: center;
+}

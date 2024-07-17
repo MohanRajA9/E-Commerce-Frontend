@@ -1,8 +1,6 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { ProductList } from './components/ProductList.js';
-import { AddColor } from './AddColor.js';
-import { SuperHeroList } from './SuperHeroList.js';
 import { Home } from './Home.js';
 import { ProductDetailPage } from './components/ProductDetailPage.js';
 import { AddProduct } from './components/AddProduct.js';
@@ -15,11 +13,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { dark } from '@mui/material/styles/createPalette.js';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ExampleContext from './context/ExampleContext.js';
-import TicTacToe from './components/TicTacToe.js';
-import LifeCycleA from './classComponent/LifeCycleA.js';
 import { EditProdut } from './components/EditProdut.js';
-import BasicForm from './Basic form/BasicForm.js';
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -120,19 +114,16 @@ export const INITIAL_PRODUCT_LIST = [
 
 function App() {
 
-  const [productList, setProductList] = useState([])
+  // const [productList, setProductList] = useState([])
   const [mode, setMode] = useState("light")
   // console.log(productList)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
-      .then((res) => res.json())
-      .then((data) => setProductList(data))
-  }, [])
-
-
-
+  // useEffect(() => {
+  //   fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
+  //     .then((res) => res.json())
+  //     .then((data) => setProductList(data))
+  // }, [])
 
   //1.creating - createcontext
   //2.publisher - provider - context.provider
@@ -153,14 +144,6 @@ function App() {
             <Button color="inherit" onClick={() => navigate("/")} >Home</Button>
             <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
             <Button color="inherit" onClick={() => navigate("/products/add")}>Add Products</Button>
-            <Button color="inherit" onClick={() => navigate("/context")}>Context</Button>
-            <Button color="inherit" onClick={() => navigate("/tic-tac-toe")} >TicTacToe</Button>
-            <Button color="inherit" onClick={() => navigate("/color-game")}>Add color</Button>
-            <Button color="inherit" onClick={() => navigate("/superHero")}>Super Heros</Button>
-            <Button color="inherit" onClick={() => navigate("/class")}>Class Component</Button>
-            <Button color="inherit" onClick={() => navigate("/form")}>Basic Form</Button>
-
-
 
             <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
               onClick={() => setMode(mode === "light" ? "dark" : "light")}>
@@ -185,16 +168,13 @@ function App() {
           <Route path="/products/add" element={<AddProduct />} />
           <Route path="/product/:productid" element={<ProductDetailPage />} />
           <Route path="/products/edit/:productid" element={<EditProdut />} />
-          <Route path="/form" element={<BasicForm />} />
-
-
-          <Route path="/color-game" element={<AddColor />} />
-          <Route path="/superHero" element={<SuperHeroList />} />
-          <Route path="/context" element={<ExampleContext />} />
-          <Route path="/tic-tac-toe" element={<TicTacToe />} />
-          <Route path="/class" element={<LifeCycleA />} />
-
-
+          
+          {/* <Route path="/tic-tac-toe" element={<TicTacToe />} /> */}
+          {/* <Route path="/context" element={<ExampleContext />} /> */}
+          {/* <Route path="/class" element={<LifeCycleA />} /> */}
+          {/* <Route path="/form" element={<BasicForm />} /> */}
+          {/* <Route path="/color-game" element={<AddColor />} /> */}
+          
         </Routes>
       </div>
     </ThemeProvider>
