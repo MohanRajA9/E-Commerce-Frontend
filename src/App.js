@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { ProductList } from './components/ProductList.js';
-import { Home } from './Home.js';
+import { Home } from './components/Home.js';
 import { ProductDetailPage } from './components/ProductDetailPage.js';
 import { AddProduct } from './components/AddProduct.js';
 import { useState, useEffect } from 'react';

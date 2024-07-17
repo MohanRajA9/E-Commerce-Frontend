@@ -4,7 +4,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button, IconButton } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
-import { Counter } from "../Counter";
+import { Counter } from "./Counter";
 
 export function Product({ product, id, deleteButton, editButton }) {
 
