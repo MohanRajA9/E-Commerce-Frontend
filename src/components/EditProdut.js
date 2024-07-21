@@ -8,9 +8,13 @@ export function EditProdut() {
 
   const { productid } = useParams();
   const [product, setProduct] = useState();
-
+  const token =JSON.parse(localStorage.getItem("token")) 
   useEffect(()=>{
-    fetch(`${API}/products/${productid}`)
+    fetch(`${API}/products/${productid}`,{
+      headers:{
+        "x-auth-token": token
+      }
+    })
     .then((res) => res.json())
     .then((data) => setProduct(data))
 

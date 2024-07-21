@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { API } from '../global';
 import { useFormik } from 'formik';
 import *as yup from 'yup'
+import axios from 'axios';
 
 const produtvalidationSchema = yup.object({
   name: yup.string()
@@ -40,18 +41,31 @@ export function AddProduct() {
       CreateProduct(newProduct)
     }
   })
-
+  const token =JSON.parse(localStorage.getItem("token")) 
   function CreateProduct(newProduct) {
     console.log("createProduct", newProduct)
-    fetch(`${API}/products`, {
-      method: "POST",
-      body: JSON.stringify(newProduct),
-      headers: {
-        "content-Type": "application/json"
-      }
-    })
-      .then((res) => res.json())
-      .then(() => navigate("/products"))
+    // fetch(`${API}/products`, {
+    //   method: "POST",
+    //   body: JSON.stringify(newProduct),
+    //   headers: {
+    //     "x-auth-token":token,
+    //     "content-Type": "application/json"
+    //   }
+    // })
+    //   .then((res) => res.json())
+    //   .then(() => navigate("/products"))
+
+axios.post(`${API}/products`,newProduct ,{
+headers:{
+  "x-auth-token":token
+}
+}).then((res)=>{
+  console.log(res)
+  navigate("/products")
+}).catch((error)=>{
+  console.log(error)
+})
+
   }
 
   return (

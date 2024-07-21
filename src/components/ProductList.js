@@ -27,9 +27,13 @@ export function ProductList() {
   //     console.error("error while fetching data", error)
   //   }
   // }
-
+const token =JSON.parse(localStorage.getItem("token")) 
   const getProducts = async () => {
-    const response = await axios.get(`${API}/products`)
+    const response = await axios.get(`${API}/products`,{
+      headers:{
+        "x-auth-token": token
+      }
+    })
     console.log(response.data)
     setProductList(response.data)
     // return response

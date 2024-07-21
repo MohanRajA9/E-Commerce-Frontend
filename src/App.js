@@ -7,13 +7,15 @@ import { AddProduct } from './components/AddProduct.js';
 import { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { dark } from '@mui/material/styles/createPalette.js';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { EditProdut } from './components/EditProdut.js';
+import Signup from './components/Signup.js';
+
 
 export const INITIAL_PRODUCT_LIST = [
   {
@@ -118,7 +120,8 @@ function App() {
   const [mode, setMode] = useState("light")
   // console.log(productList)
   const navigate = useNavigate()
-
+  const token = localStorage.getItem("token")
+  console.log(token)
   // useEffect(() => {
   //   fetch("https://660cf69d3a0766e85dbf0f53.mockapi.io/products")
   //     .then((res) => res.json())
@@ -135,21 +138,36 @@ function App() {
     },
   });
 
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user_data")
+    navigate("/")
+  }
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="App">
-        <AppBar position="static" >
-          <Toolbar>
-            <Button color="inherit" onClick={() => navigate("/")} >Home</Button>
-            <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
-            <Button color="inherit" onClick={() => navigate("/products/add")}>Add Products</Button>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" >
+            <Toolbar>
+              {!token ? <div><Button color="inherit" onClick={() => navigate("/")} >Home</Button></div> : null}
 
-            <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-              onClick={() => setMode(mode === "light" ? "dark" : "light")}>
-              {mode === "light" ? "dark" : "light"} mode</Button>
-          </Toolbar>
-        </AppBar>
+              {token ? <div>
+                <Button color="inherit" onClick={() => navigate("/products")}>Products</Button>
+                <Button color="inherit" onClick={() => navigate("/products/add")} sx={{ flexGrow: 1 }} >Add Products</Button>
+                <Button color="inherit" endIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                  onClick={() => setMode(mode === "light" ? "dark" : "light")}  >
+                  {mode === "light" ? "dark" : "light"} mode</Button>
+
+              </div> : null}
+              <Typography sx={{ flexGrow: 1 }} ></Typography>
+              {token ? <div><Button color="inherit" onClick={logout} >Logout</Button></div> : null}
+            </Toolbar>
+          </AppBar>
+
+
+        </Box>
 
         {/* <nav>
         <ul>
@@ -164,17 +182,18 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/add" element={<AddProduct />} />
           <Route path="/product/:productid" element={<ProductDetailPage />} />
           <Route path="/products/edit/:productid" element={<EditProdut />} />
-          
+
           {/* <Route path="/tic-tac-toe" element={<TicTacToe />} /> */}
           {/* <Route path="/context" element={<ExampleContext />} /> */}
           {/* <Route path="/class" element={<LifeCycleA />} /> */}
           {/* <Route path="/form" element={<BasicForm />} /> */}
           {/* <Route path="/color-game" element={<AddColor />} /> */}
-          
+
         </Routes>
       </div>
     </ThemeProvider>
