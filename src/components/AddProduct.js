@@ -21,7 +21,11 @@ const produtvalidationSchema = yup.object({
   ratings: yup.number()
     .min(1, "ratings should be above one")
     .max(5, "ratings should be below five")
-    .required("why not fill the rating?")
+    .required("why not fill the rating?"),
+    id: yup.number()
+    .min(1,"id is should be above 0")
+    .max(99,"id should be maximum 99")
+    .required("id is required")
 })
 
 export function AddProduct() {
@@ -33,7 +37,8 @@ export function AddProduct() {
       poster: "",
       price: "",
       summary: "",
-      ratings: ""
+      ratings: "",
+      id:""
     },
     validationSchema: produtvalidationSchema,
     onSubmit: (newProduct) => {
@@ -96,6 +101,10 @@ headers:{
         <TextField id="ratings" label="Ratings" variant="outlined" name="ratings" value={formik.values.ratings} onChange={formik.handleChange} onBlur={formik.handleBlur} />
         <br />
         {formik.touched.ratings && formik.errors.ratings ? formik.errors.ratings : ""}
+
+        <TextField id="id" label="id" variant="outlined" name="id" value={formik.values.id} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+        <br/>
+        {formik.touched.id && formik.errors.id ? formik.errors.id : "" }
 
         <Button variant="contained" type="submit" onClick={CreateProduct} >Add Product</Button>
       </div>
